@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: login to DockerHub
-          command: docker login -u $DOCKERHUB_USER -p "$DOCKERHUB_PASSWORD"
+          command: echo "$DOCKERHUB_PASSWORD" | docker login --user $DOCKERHUB_USERNAME --password-stdin
       - run:
           name: build and publish image to DockerHub.
           command: |
