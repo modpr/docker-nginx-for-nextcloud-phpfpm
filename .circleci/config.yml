@@ -2,11 +2,9 @@ version: 2.1
 
 jobs:
   build:
-    context:
-      - DockerHub
     environment:
-      - DOCKER_IMAGE_TAG: "modpro/nginx-for-nextcloud-phpfpm:latest" 
-      - DOCKER_BUILD_TARGET: "linux/amd64,linux/arm/v7,linux/arm64"
+      DOCKER_IMAGE_TAG: "modpro/nginx-for-nextcloud-phpfpm:latest" 
+      DOCKER_BUILD_TARGET: "linux/amd64,linux/arm/v7,linux/arm64"
     docker:
       - image: cimg/base:stable
     steps:
@@ -15,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: login to DockerHub
-          run: docker login -u $DOCKERHUB_USER -p "$DOCKERHUB_PASSWORD"
+          command: docker login -u $DOCKERHUB_USER -p "$DOCKERHUB_PASSWORD"
       - run:
           name: build and publish image to DockerHub.
           command: |
@@ -27,5 +25,7 @@ jobs:
 workflows:
   build-deploy:
     jobs:
-      - build
+      build:
+        context:
+          - DockerHub
 
