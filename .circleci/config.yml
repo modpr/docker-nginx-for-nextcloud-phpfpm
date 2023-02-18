@@ -17,6 +17,7 @@ jobs:
       - run:
           name: build and publish image to DockerHub.
           command: |
+            docker context create buildx-build
             docker buildx create --use buildx-build \
               --name multi --driver docker-container \
               --platform $DOCKER_BUILD_TARGET
