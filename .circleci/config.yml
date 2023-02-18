@@ -11,6 +11,6 @@ jobs:
       - image: cimg/base:stable
   steps:
     - setup_remote_docker:
-        version: 20.10.18
+      - version: 20.10.18
     - checkout
     - run: docker buildx build . 
